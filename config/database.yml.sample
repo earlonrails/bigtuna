@@ -1,0 +1,13 @@
+development:
+  adapter: sqlite3
+  database: db/development.sqlite
+  pool: 5
+
+test:
+  adapter: sqlite3
+  database: db/test.sqlite
+  pool: 5
+
+production:
+  adapter: sqlite3
+  database: << your production path here >>

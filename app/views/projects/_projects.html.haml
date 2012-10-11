@@ -1,0 +1,45 @@
+#ajax-reload= Project.ajax_reload?
+- if @projects.empty?
+  .hero-unit
+    %h1= "No projects yet."
+    %p
+      Add a new project and start continuously testing your software!
+    %p
+      = link_to("Set up a new project", new_project_path, :class => 'btn btn-primary btn-large jumbo')
+
+- @projects.each do |project|
+  %div{:class => 'row', :id => dom_id(project)}
+    - unless BigTuna.read_only?
+      .updown
+        = link_to("&uarr;".html_safe, arrange_project_path(project, :up => true)) unless project.first?
+        = link_to("&darr;".html_safe, arrange_project_path(project, :down => true)) unless project.last?
+    .span3.offset2
+      %h1{:class => "project-title #{project.status}"}
+        = link_to(project.name, project_path(project))
+
+    .span5.offset1
+      - if project.recent_build
+        - build = project.recent_build
+        %table.table.commit-data
+          %thead
+            %tr
+              %th{:style => 'width: 20%'}
+              %th{:style => 'width: 80%'}
+          %tbody
+            %tr
+              %td Commit
+              %td
+                - if build.commit_data?
+                  %code{:class => "dark", :title => build.commit}= truncate(build.commit, :length => 10, :omission => '..')
+                  by
+                  = (mail_to(build.email, build.author)).html_safe
+                  = " on #{l(build.committed_at, :format => :long)}"
+                - else
+                  Commit data not yet available
+            %tr
+              %td Message
+              %td
+                %pre.unobstrusive= build.commit_data? ? build.commit_message : "Message not yet available"
+            %tr
+              %td Stability
+              %td= format_stability(project.stability)

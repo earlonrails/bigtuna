@@ -1,0 +1,28 @@
+%ul.list-with-status.in-recent-builds
+  - @builds.each do |build|
+    .span4.offset1
+      %h1{:class => "project-title #{build.status}"}= link_to("Build ##{build.build_no}", build_path(build, :stderr => build.status == Build::STATUS_OK ? nil : 1))
+
+    .span6
+      %table.table.commit-data
+        %thead
+          %tr
+            %th{:style => 'width: 20%'}
+            %th{:style => 'width: 80%'}
+        %tbody
+          %tr
+            %td Commit
+            %td
+              - if build.commit_data?
+                %code{:class => "dark", :title => build.commit}= truncate(build.commit, :length => 10, :omission => '..')
+                by
+                = (mail_to(build.email, build.author)).html_safe
+                = " on #{l(build.committed_at, :format => :long)}"
+              - else
+                Commit data not yet available
+          %tr
+            %td Message
+            %td
+              %pre.unobstrusive= build.commit_data? ? build.commit_message : "Message not yet available"
+    .span12
+      %hr
