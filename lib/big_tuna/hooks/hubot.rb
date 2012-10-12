@@ -44,7 +44,7 @@ module BigTuna
       def build_info(build, status)
         { :status => status,
           :user =>"#{build.email}",
-          :project => "#{buld.project.name}"
+          :project => "#{build.project.name}",
           :branch =>"#{build.project.vcs_branch}",
           :tag =>"#{build.commit}"
         }

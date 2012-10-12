@@ -9,7 +9,7 @@
           = label_tag("hooks_enabled[#{hook_name}]", hook_name.humanize, :class => "hint")
           = check_box_tag("hooks_enabled[#{hook_name}]", "1", @hook.hooks_enabled.include?(hook_name))
   - begin
-    = render(:partial => "#{@hook.backend.class::NAME}/form", :locals => {:f => f})
+    = render(:file => "#{Rails.root}/lib/big_tuna/hooks/#{@hook.backend.class::NAME}/_form.html.haml", :locals => {:f => f})
   - rescue ActionView::MissingTemplate
     - #pass
   %button{:type => "submit"} Edit

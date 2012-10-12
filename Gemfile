@@ -2,6 +2,7 @@ source 'http://rubygems.org'
 
 gem "rails", "~> 3.0.11"
 gem "sqlite3-ruby"
+gem 'mysqlplus'
 gem "haml"
 gem "delayed_job"
 gem "stringex"
