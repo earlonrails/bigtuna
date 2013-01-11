@@ -1,4 +1,4 @@
-module Rcov
+module BigTuna
   class Hooks::Rcov < Hooks::Base
     NAME = "rcov"
 

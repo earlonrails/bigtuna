@@ -1,0 +1,4 @@
+.powrc
+config/database.yml
+tmp/restart.txt
+log/*

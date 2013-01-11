@@ -17,6 +17,7 @@ module BigTuna
     class Job
       require 'net/http'
       require 'net/https'
+      require 'uri'
 
       def initialize(message, config)
         @message = message
@@ -24,15 +25,35 @@ module BigTuna
       end
 
       def perform
+        connect
+        post
+      end
+
+      def connect
+        @uri = URI.parse(@config[:server_uri])
+        @http = Net::HTTP.new(uri.host, uri.port)
+        # http.use_ssl = true
+      end
+
+      def get
         path = "/hubot/#{@message[:status]}?user=#{@message[:user]}&project=#{@message[:project]}&branch=#{@message[:branch]}&tag=#{@message[:tag]}"
         headers = {'Accept' => 'plain/text',
                    'Content-Type' => 'plain/text'}
-
-        http = Net::HTTP.new(@config[:server], 5555)
-        # http.use_ssl = true
-        response, data = http.get(path, headers)
+        response, data = @http.get(path, headers)
 
         { :message => @message, :response => response, :data => data }
+      end
+
+      def post
+        request = Net::HTTP::Post.new(@uri.request_uri)
+        request.set_form_data({ :status => @message[:status],
+                                :user => @message[:user],
+                                :project => @message[:project],
+                                :branch => @message[:branch],
+                                :tag => @message[:tag],
+                                :build_stdout => @message[:build_stdout]
+                              })
+        response = @http.request(request)
       end
     end
 
@@ -46,7 +67,8 @@ module BigTuna
           :user =>"#{build.email}",
           :project => "#{build.project.name}",
           :branch =>"#{build.project.vcs_branch}",
-          :tag =>"#{build.commit}"
+          :tag => "#{build.commit}",
+          :build_stdout => "#{build.parts.last.output.last.stdout.join}"
         }
       end
   end
