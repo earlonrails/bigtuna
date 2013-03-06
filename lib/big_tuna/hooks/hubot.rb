@@ -26,12 +26,16 @@ module BigTuna
 
       def perform
         connect
-        post
+        if @config[:request_type] == "post"
+          post
+        else
+          get
+        end
       end
 
       def connect
         @uri = URI.parse(@config[:server_uri])
-        @http = Net::HTTP.new(uri.host, uri.port)
+        @http = Net::HTTP.new(@uri.host, @uri.port)
         # http.use_ssl = true
       end
 
