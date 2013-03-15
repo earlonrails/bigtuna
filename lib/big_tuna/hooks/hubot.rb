@@ -34,9 +34,8 @@ module BigTuna
       end
 
       def connect
-        @uri = URI.parse(@config[:server_uri])
+        @uri = URI.parse(@config[:server_uri] + @message[:status])
         @http = Net::HTTP.new(@uri.host, @uri.port)
-        # http.use_ssl = true
       end
 
       def get
@@ -67,12 +66,13 @@ module BigTuna
       end
 
       def build_info(build, status)
+        first_failure_stdout = build.parts.last.output.select {|o| !o.ok? }.first.stdout
         { :status => status,
           :user =>"#{build.email}",
           :project => "#{build.project.name}",
           :branch =>"#{build.project.vcs_branch}",
           :tag => "#{build.commit}",
-          :build_stdout => "#{build.parts.last.output.last.stdout.join}"
+          :build_stdout => "#{first_failure_stdout.join}"
         }
       end
   end
