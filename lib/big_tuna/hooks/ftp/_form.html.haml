@@ -1,0 +1,20 @@
+%div
+  = label_tag("Ftp Host")
+  %br
+  = text_field_tag("configuration[ftp_host]", @hook.configuration["ftp_host"])
+  %br
+  = label_tag("Ftp Location")
+  %br
+  = text_field_tag("configuration[ftp_location]", @hook.configuration["ftp_location"])
+  %br
+  = label_tag("Username")
+  %br
+  = text_field_tag("configuration[username]", @hook.configuration["username"])
+  %br
+  = label_tag("File Location")
+  %br
+  = text_field_tag("configuration[file_location]", @hook.configuration["file_location"])
+  %br
+  = label_tag("Identity File")
+  %br
+  = text_field_tag("configuration[identity_file]", @hook.configuration["identity_file"])
