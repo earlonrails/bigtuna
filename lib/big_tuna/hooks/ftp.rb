@@ -2,18 +2,23 @@ module BigTuna
   class Hooks::Ftp < Hooks::Base
     NAME = "ftp"
 
+    def build_passed(build, config)
+      Delayed::Job.enqueue(Job.new(config))
+    end
+
+    def build_still_passes(build, config)
+      Delayed::Job.enqueue(Job.new(config))
+    end
+
     def build_fixed(build, config)
-      project = build.project
       Delayed::Job.enqueue(Job.new(config))
     end
 
     def build_still_fails(build, config)
-      project = build.project
       Delayed::Job.enqueue(Job.new(config))
     end
 
     def build_failed(build, config)
-      project = build.project
       Delayed::Job.enqueue(Job.new(config))
     end
 
