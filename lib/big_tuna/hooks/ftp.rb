@@ -30,9 +30,9 @@ module BigTuna
       def perform
         ftp_location  = @config[:ftp_location]
         file          = @config[:file_location]
-        ftp_host      = @hook.configuration[:ftp_host]
-        user_name     = @hook.configuration[:username]
-        identity_file = @hook.configuration[:identity_file]
+        ftp_host      = @config[:ftp_host]
+        user_name     = @config[:username]
+        identity_file = @config[:identity_file]
         Net::SCP.upload!(ftp_host, user_name, file, ftp_location, :key => identity_file)
       end
     end
