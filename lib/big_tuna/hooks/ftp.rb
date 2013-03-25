@@ -33,6 +33,7 @@ module BigTuna
         ftp_host      = @config[:ftp_host]
         user_name     = @config[:username]
         identity_file = @config[:identity_file]
+        ftp_location.sub!(/\./, Time.now.strftime("_%m_%d_%Y_%H%M.")) if (@config[:add_timestamp].to_i == 1)
         Net::SCP.upload!(ftp_host, user_name, file, ftp_location, :key => identity_file)
       end
     end
