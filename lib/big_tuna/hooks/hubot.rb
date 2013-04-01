@@ -66,13 +66,14 @@ module BigTuna
       end
 
       def build_info(build, status)
-        first_failure_stdout = build.parts.last.output.select {|o| !o.ok? }.first.stdout
+        failing_build_parts = build.parts.select { |part| part.status == "status_build_part_failed" }
+        failure_stdout = failing_build_parts.collect { |fail_part| fail_part.output.collect{|out| out.stdout + out.stderr } }.join("\n")
         { :status => status,
           :user =>"#{build.email}",
           :project => "#{build.project.name}",
           :branch =>"#{build.project.vcs_branch}",
           :tag => "#{build.commit}",
-          :build_stdout => "#{first_failure_stdout.join}"
+          :build_stdout => "#{failure_stdout}"
         }
       end
   end
