@@ -1,0 +1,18 @@
+%div
+  = label_tag("Ftp Host")
+  = text_field_tag("configuration[ftp_host]", @hook.configuration["ftp_host"])
+  %br
+  = label_tag("Ftp Location")
+  = text_field_tag("configuration[ftp_location]", @hook.configuration["ftp_location"])
+  %br
+  = label_tag("Username")
+  = text_field_tag("configuration[username]", @hook.configuration["username"])
+  %br
+  = label_tag("File Location")
+  = text_field_tag("configuration[file_location]", @hook.configuration["file_location"])
+  = label_tag("Add TimeStamp?")
+  = check_box_tag("configuration[add_timestamp]", "1", (@hook.configuration["add_timestamp"].to_s == "1"))
+  %br
+  = label_tag("Identity File")
+  = text_field_tag("configuration[identity_file]", @hook.configuration["identity_file"])
+  %br

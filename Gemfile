@@ -1,51 +1,53 @@
 source 'http://rubygems.org'
 
-gem "rails", "~> 3.0.11"
-gem "sqlite3-ruby"
-gem "haml"
-gem "delayed_job"
-gem "stringex"
-gem "open4"
-gem "json"
-gem "jquery-rails"
-gem "thin"
+gem 'rails', '~> 3.0.11'
+gem 'sqlite3-ruby'
+gem 'mysqlplus'
+gem 'haml'
+gem 'delayed_job'
+gem 'stringex'
+gem 'open4'
+gem 'json'
+gem 'jquery-rails'
+gem 'thin'
+gem 'net-scp'
 
 # ruby 1.9 compatible version
-gem "scashin133-xmpp4r-simple", '0.8.9', :require => 'xmpp4r-simple'
+gem 'scashin133-xmpp4r-simple', '0.8.9', :require => 'xmpp4r-simple'
 
 # irc notification
-gem "shout-bot"
+gem 'shout-bot'
 
 # notifo notifications
-gem "notifo"
+gem 'notifo'
 
 # campfire notifications
-gem "tinder"
+gem 'tinder'
 
-case ENV["DB"]
-when "mysql" then gem "mysql2", "~>0.2.0"
-when "postgres" then gem "pg"
+case ENV['DB']
+when 'mysql' then gem 'mysql2', '~>0.2.0'
+when 'postgres' then gem 'pg'
 end
 
 group :development, :test do
-  gem "capybara"
-  gem "launchy"
-  gem "faker"
-  gem "machinist"
-  gem "nokogiri"
-  gem "mocha"
-  gem "database_cleaner"
-  gem "crack"
+  gem 'capybara'
+  gem 'launchy'
+  gem 'faker'
+  gem 'machinist'
+  gem 'nokogiri'
+  gem 'mocha'
+  gem 'database_cleaner'
+  gem 'crack'
 
   platforms :mri_18 do
-    gem "ruby-debug"
+    gem 'ruby-debug'
   end
 
   platforms :mri_19 do
-    gem "ruby-debug19"
+    gem 'ruby-debug19'
   end
 end
 
 group :test do
-  gem "webmock"
+  gem 'webmock'
 end
