@@ -1,0 +1,8 @@
+%div
+  = label_tag("hubot server url")
+  %br
+  = text_field_tag("configuration[server_uri]", @hook.configuration["server_uri"])
+  %br
+  = label_tag("hubot request type")
+  %br
+  = text_field_tag("configuration[request_type]", @hook.configuration["request_type"])
