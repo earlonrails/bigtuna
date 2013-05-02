@@ -10,8 +10,6 @@ gem 'open4'
 gem 'json'
 gem 'jquery-rails'
 gem 'thin'
-gem 'resque', :require => 'resque/server'
-gem 'foreman'
 gem 'net-scp'
 
 # ruby 1.9 compatible version
